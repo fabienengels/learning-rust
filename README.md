@@ -2,4 +2,4 @@
 
 ## Rustlings (**Done**)
 
-In rustlings folder, you'll find my solutions for Rustlings v6.3.0.
+In [rustlings folder](/rustlings/), you'll find my solutions for [Rustlings](https://github.com/rust-lang/rustlings) v6.3.0.
