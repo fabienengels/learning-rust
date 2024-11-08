@@ -23,19 +23,43 @@ enum IntoColorError {
     IntConversion,
 }
 
+fn in_range(value: &i16) -> bool {
+    (0..=255).contains(value)
+}
+
 // TODO: Tuple implementation.
 // Correct RGB color values must be integers in the 0..=255 range.
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
 
-    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {}
+    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        if !in_range(&tuple.0) || !in_range(&tuple.1) || !in_range(&tuple.2) {
+            return Err(IntoColorError::IntConversion);
+        };
+
+        Ok(Color{
+            red: tuple.0.try_into().unwrap(),
+            green: tuple.1.try_into().unwrap(),
+            blue: tuple.2.try_into().unwrap(),
+        })
+    }
 }
 
 // TODO: Array implementation.
 impl TryFrom<[i16; 3]> for Color {
     type Error = IntoColorError;
 
-    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {}
+    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        if !in_range(&arr[0]) || !in_range(&arr[1]) || !in_range(&arr[2]) {
+            return Err(IntoColorError::IntConversion);
+        };
+
+        Ok(Color{
+            red: arr[0].try_into().unwrap(),
+            green: arr[1].try_into().unwrap(),
+            blue: arr[2].try_into().unwrap(),
+        })
+    }
 }
 
 // TODO: Slice implementation.
@@ -43,7 +67,22 @@ impl TryFrom<[i16; 3]> for Color {
 impl TryFrom<&[i16]> for Color {
     type Error = IntoColorError;
 
-    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {}
+    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if slice.len() != 3 {
+            return Err(IntoColorError::BadLen);
+        }
+
+        if !in_range(&slice[0]) || !in_range(&slice[1]) || !in_range(&slice[2]) {
+            return Err(IntoColorError::IntConversion);
+        };
+
+
+        Ok(Color{
+            red: slice[0].try_into().unwrap(),
+            green: slice[1].try_into().unwrap(),
+            blue: slice[2].try_into().unwrap(),
+        })
+    }
 }
 
 fn main() {
