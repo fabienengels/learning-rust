@@ -1,4 +1,4 @@
-# My adventure in learning Rust
+# My journey learning Rust
 
 ## Rustlings (**Done**)
 
