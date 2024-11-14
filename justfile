@@ -1,2 +1,2 @@
 wr:
-  watchexec -c wr --keep-going
+  watchexec -c -- wr --keep-going
